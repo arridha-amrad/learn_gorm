@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres
+    container_name: learn_gorm
+    environment:
+      POSTGRES_USER: learn_gorm_user
+      POSTGRES_PASSWORD: learn_gorm_pwd
+      POSTGRES_DB: learn_gorm_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - learn_gorm_volume:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  learn_gorm_volume:
