@@ -29,6 +29,7 @@ type userAccountService struct {
 type IUserAccountService interface {
 	CreateUserWithAccount(params CreateUserWithAccountParams) error
 	Transfer(params TransferParams) error
+	GetUser(userId uint) error
 }
 
 func NewUserAccountService(
@@ -112,5 +113,15 @@ func (s *userAccountService) Transfer(params TransferParams) error {
 	}
 	log.Println("Transfer is successful")
 	s.baseRepo.Commit(tx)
+	return nil
+}
+
+func (s *userAccountService) GetUser(userId uint) error {
+	user, err := s.userRepo.FindOneWithAccount(nil, userId)
+	if err != nil {
+		return err
+	}
+	infoUser := fmt.Sprintf("balance : %v", user.Account.Balance)
+	log.Println(infoUser)
 	return nil
 }

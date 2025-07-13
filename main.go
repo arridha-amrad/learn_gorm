@@ -24,7 +24,7 @@ func main() {
 	}
 	log.Println("Migration completed")
 
-	userRepo := repositories.NewUserRepo()
+	userRepo := repositories.NewUserRepo(db)
 	accountRepo := repositories.NewAccountRepo()
 	baseRepo := repositories.NewBaseRepo(db)
 
@@ -40,11 +40,16 @@ func main() {
 	// }
 
 	// TRANSFER
-	if err := userAccountService.Transfer(services.TransferParams{
-		FromId: 1,
-		ToId:   4,
-		Amount: 10,
-	}); err != nil {
+	// if err := userAccountService.Transfer(services.TransferParams{
+	// 	FromId: 1,
+	// 	ToId:   4,
+	// 	Amount: 100,
+	// }); err != nil {
+	// 	log.Println(err.Error())
+	// }
+
+	// FIND USER WITH HIS ACCOUNT
+	if err := userAccountService.GetUser(1); err != nil {
 		log.Println(err.Error())
 	}
 }
